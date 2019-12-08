@@ -1,5 +1,8 @@
 package com.shengsiyuan.jvm.memory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 虚拟机栈：Stack Frame 栈帧 存储操作数栈里面的数据，存储局部变量表
  * 每个方法执行的时候都会形成栈帧这个数据结构
@@ -60,7 +63,33 @@ package com.shengsiyuan.jvm.memory;
     空闲列表：（前提是堆内存空间中已被使用与未被使用的内存空间是交织在一起的，这时，虚拟机就需要通过一个列表来记录
     那些空间是可以使用的，那些空间是已被使用的，接下来找出可以容纳新创建对象且未被使用的空间，在此空间存放该对象，
     同时还要修改列表上的记录。
+    对象在内存中的布局
+    1. 对象头
+    2. 实例数据（即我们在一个类中声明的各项信息)
+    3. 对其填充
+    句柄里面有 2个指针 ，一个指向 实例数据 一个指向方法区中的类型信息
+    hotspot虚拟机采用直接指针的方式使用的
+    引用访问对象的方式
+    1. 使用句柄的方式
+    2. 使用直接指针的方式
+
+    java 虚拟机提供了可以设置堆空间大小的参数。
+    设置堆空间 最小值和最大值一样 ，将线程上下文信息 打印到磁盘上面。
+    作为理论依据 。
+    设置堆空间最小值和最大值 内存溢出时 ，将堆转储信息打印出来
+    -Xms5m -Xmx5m -XX:HeapDumpOnOutOfMemoryError
+    元空间默认大小 是21M metaspace
 sfdf
  */
 public class MyTest1 {
+    public static void main(String[] args) {
+        List<MyTest1> list = new ArrayList<>();
+        for (; ; ) {
+            list.add(new MyTest1());
+            //告诉虚拟机进行一次显示垃圾回收，为啥没有报错了，不是有引用，怎么还可以回收
+
+            System.gc();
+        }
+    }
+
 }
