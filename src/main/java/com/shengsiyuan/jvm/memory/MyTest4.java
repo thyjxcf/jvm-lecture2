@@ -12,6 +12,10 @@ cglib z在运行期生成目标类的子类，子类又可以调用父类相应�
 在调用父类的方法前与后插入自己的一些逻辑，进一步实现AOP
 fdgs
 -XX:MaxMetaspaceSize=200m
+从jdk 1.8开始 永久代概念就没有了，在元空间会有元空间虚拟机维护元空间处理。
+默认元空间大小 是 21m
+不设置maxMetaspace 达道高水位大小会自动扩展的 。
+
  */
 
 import net.sf.cglib.proxy.Enhancer;
